@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/users", userController.getUsers);
+app.get("/subjects", userController.getSubjects);
 
 export async function init () {
   await connectDatabase();
