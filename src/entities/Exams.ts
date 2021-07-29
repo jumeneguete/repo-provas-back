@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import Subjects from "./Subjects";
+import Teachers from './Teachers';
+import Types from "./Types";
 
 @Entity("exams")
 export default class Exams {
@@ -15,7 +18,7 @@ export default class Exams {
   link: string;
 
   @Column()
-  SubjectId: number
+  subjectId: number
 
   @Column()
   teacherId: number
@@ -23,4 +26,12 @@ export default class Exams {
   @Column()
   typeId: number;
 
+  @ManyToOne(() => Subjects, subjects => subjects.id)
+  subjects: Subjects;
+
+  @ManyToOne(() => Teachers, teachers => teachers.id)
+  teachers: Teachers;
+
+  @ManyToOne(() => Types, types => types.id)
+  type: Types;
 }

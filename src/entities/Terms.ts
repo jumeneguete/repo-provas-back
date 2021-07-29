@@ -10,5 +10,5 @@ export default class Terms {
   name: string;
 
   @OneToMany(() => Subjects, subjects => subjects.termId)
-    photos: Subjects[];
+  subjects: Subjects[];
 }

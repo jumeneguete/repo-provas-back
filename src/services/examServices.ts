@@ -1,9 +1,19 @@
 import { getRepository } from "typeorm";
+import { Body } from "../controllers/examControllers";
+import Exams from "../entities/Exams";
 
-import Subjects from "../entities/Exams";
+export async function insert (body : Body) {
 
-export async function insert () {
-  const users = await getRepository(Subjects).find();
+  const bodyInfo : Body = {
+      name: body.name,
+      semester: body.semester,
+      link: body.link,
+      subjectId: body.subjectId,
+      teacherId: body.teacherId,
+      typeId: body.typeId
+  }
+  const newExam = getRepository(Exams).create(bodyInfo);
+  const result = await getRepository(Exams).save(newExam);
   
-  return users;
+  return result;
 }
