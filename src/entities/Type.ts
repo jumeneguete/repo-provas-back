@@ -1,15 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import Exams from "./Exams";
+import Exam from "./Exam";
 
-@Entity("types")
-export default class Types {
+@Entity("type")
+export default class Type {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @OneToMany(() => Exams, exams => exams.typeId)
-  exams: Exams[];
+  @OneToMany(() => Exam, exam => exam.typeId)
+  exam: Exam[];
 
 }
