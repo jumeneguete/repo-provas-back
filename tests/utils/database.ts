@@ -1,7 +1,9 @@
 import { getRepository } from "typeorm";
 
-import User from "../../src/entities/User";
+import Exam from "../../src/entities/Exam";
 
-export async function clearDatabase () {
-  await getRepository(User).delete({});
+export async function clearExamDatabase () {
+  await getRepository(Exam).delete({});
 }
+
+//queryRunner.query('TRUNCATE TABLE foo')

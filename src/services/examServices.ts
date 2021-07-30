@@ -2,6 +2,7 @@ import { getRepository } from "typeorm";
 import { Body } from "../controllers/examControllers";
 import Exam from "../entities/Exam";
 import Joi from "joi";
+import dayjs from 'dayjs'
 
 const schema = Joi.object({ 
   name: Joi.string().length(4),
@@ -16,13 +17,17 @@ export async function insert ({ name, semester, link, subjectId, teacherId, type
   const receivedBody= { name, semester, link, subjectId, teacherId, typeId}
 
   const validation = schema.validate(receivedBody);
-  if( validation.error) return false;
+  const validName  = Number(name) >= 1990 && Number(name) <= dayjs().year();
+  const validSemester = Number(semester) === 1 || Number(semester) === 2;
 
-  const bodyInfo : Body = receivedBody;
+  if( validation.error || !validName || !validSemester) return false;
 
   const existingExam = await getRepository(Exam).find({where: receivedBody});
   const existingUrl = await getRepository(Exam).find({where: {link}});
+  
   if(existingExam.length > 0 || existingUrl.length > 0) return null;
+
+  const bodyInfo : Body = receivedBody;
 
   const newExam = getRepository(Exam).create(bodyInfo);
   const result = await getRepository(Exam).save(newExam);

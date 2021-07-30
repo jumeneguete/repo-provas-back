@@ -25,7 +25,7 @@ export async function insertExam (req: Request, res: Response) {
     if (exam === null) return res.sendStatus(409);
     if (!exam) return res.sendStatus(401);
 
-    res.send(exam);
+    res.status(201).send(exam);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);

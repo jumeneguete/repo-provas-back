@@ -1,14 +1,12 @@
 import { getRepository } from "typeorm";
+import { Body } from "../../src/controllers/examControllers"
 
-import User from "../../src/entities/User";
+import Exam from "../../src/entities/Exam";
 
-export async function createUser () {
-  const user = await getRepository(User).create({
-    email: "email@email.com",
-    password: "123456"
-  });
+export async function createExam (body: Body) {
 
-  await getRepository(User).save(user);
+  const newExam = getRepository(Exam).create(body);
+  const result = await getRepository(Exam).save(newExam);
 
-  return user;
+  return result;
 }
