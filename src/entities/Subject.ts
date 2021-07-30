@@ -15,7 +15,7 @@ export default class Subject {
   termId: number;
 
   @ManyToOne(() => Term, term => term.id)
-    subject: Term;
+  term: Term;
 
   @OneToMany(() => Exam, exam => exam.subjectId)
   exam: Exam[];

@@ -6,4 +6,3 @@ export async function clearExamDatabase () {
   await getRepository(Exam).delete({});
 }
 
-//queryRunner.query('TRUNCATE TABLE foo')

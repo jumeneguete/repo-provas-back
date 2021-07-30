@@ -34,3 +34,12 @@ export async function insert ({ name, semester, link, subjectId, teacherId, type
   
   return result;
 }
+
+export async function getExamBySubject(id : number) {
+  const result = getRepository(Exam).find({
+    relations: ["teacher"],
+    where: {subjectId : id}
+  });
+
+  return result;
+}
