@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-
 import * as examService from "../services/examServices";
+import Joi from "joi";
 
 export interface Body {
   name: string,
@@ -32,8 +32,15 @@ export async function insertExam (req: Request, res: Response) {
   }
 };
 
+const idSchema = Joi.object({ 
+  id: Joi.number().integer()
+  });
+
 export async function getExamBySubject(req: Request, res: Response) {
   const id : number = Number(req.params.id);
+  const validId = idSchema.validate({id});
+
+  if (!id || validId.error) return res.sendStatus(400);
   const result = await examService.getExamBySubject(id);
 
   res.status(200).send(result) 

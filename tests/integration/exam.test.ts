@@ -119,3 +119,35 @@ describe("POST /exam", () => {
     expect(response.status).toBe(409);
   });
 });
+
+describe("GET /:id/subject", () => {
+
+  it("should answer with status 200 when receive a valid param and returns from database", async () => {
+    const param = "1"
+    const response = await agent.get(`/${param}/subject`);
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should return an array from database when receive a valid parma", async () => {
+    const param = "1"
+    const response = await agent.get(`/${param}/subject`);
+
+   expect(response.body).toEqual(expect.any(Array));
+  });
+
+  it("should return status 400 when receive an invalid param - NaN", async () => {
+    const param = "teste"
+    const response = await agent.get(`/${param}/subject`);
+
+    expect(response.status).toBe(400);
+  });
+
+  it("should return status 400 when receive an invalid param - not integer", async () => {
+    const param = "1.1"
+    const response = await agent.get(`/${param}/subject`);
+
+    expect(response.status).toBe(400);
+  });
+
+});
