@@ -13,16 +13,16 @@ afterAll(async () => {
 
 const agent = supertest(app)
 
-describe("GET /subject", () => {
+describe("GET /teacher", () => {
 
-  it("should answer with status 200 when return all subjects from database", async () => {
-    const response = await agent.get("/subject");
+  it("should answer with status 200 when return all teachers from database", async () => {
+    const response = await agent.get("/teacher");
 
     expect(response.status).toBe(200);
   });
 
   it("should return an array from database", async () => {
-    const response = await agent.get("/subject");
+    const response = await agent.get("/teacher");
 
    expect(response.body).toEqual(expect.any(Array));
   });

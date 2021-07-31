@@ -50,15 +50,15 @@ export async function getExamBySubject(req: Request, res: Response) {
     res.sendStatus(500);
   }
 
-  
 };
-
 
 
 export async function getExamByTeacher(req: Request, res: Response) {
   const id : number = Number(req.params.id);
+  const validId = idSchema.validate({id});
 
   try{
+    if (!id || validId.error) return res.sendStatus(400);
     const result = await examService.getExamByTeacher(id);
 
     res.status(200).send(result) ;
@@ -69,8 +69,3 @@ export async function getExamByTeacher(req: Request, res: Response) {
   }
 
 };
-
-
-export async function teste (req: Request, res: Response) {
-    res.send("fooooooi");
-}

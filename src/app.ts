@@ -21,9 +21,6 @@ app.get("/teacher", teacherController.getTeacher);
 app.get("/:id/teacher/", examController.getExamByTeacher);
 
 
-
-app.get("/teste", examController.teste);
-
 export async function init () {
   await connectDatabase();
 }
