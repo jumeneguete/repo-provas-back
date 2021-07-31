@@ -40,10 +40,17 @@ export async function getExamBySubject(req: Request, res: Response) {
   const id : number = Number(req.params.id);
   const validId = idSchema.validate({id});
 
-  if (!id || validId.error) return res.sendStatus(400);
-  const result = await examService.getExamBySubject(id);
+  try{
+    if (!id || validId.error) return res.sendStatus(400);
+    const result = await examService.getExamBySubject(id);
+  
+    res.status(200).send(result) 
+  } catch(err){
+    console.log(err);
+    res.sendStatus(500);
+  }
 
-  res.status(200).send(result) 
+  
 };
 
 
