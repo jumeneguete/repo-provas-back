@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as examService from "../services/examServices";
-import Joi from "joi";
+import { idSchema } from "../schemas/idSchema";
 
 export interface Body {
   name: string,
@@ -18,7 +18,6 @@ export async function insertExam (req: Request, res: Response) {
     const { name, semester, link, subjectId, teacherId, typeId} = body;
 
     const condition = !name || !semester || !link || !subjectId || !teacherId || !typeId;
-   
     if (condition) return res.sendStatus(400);
 
     const exam = await examService.insert(body);
@@ -31,10 +30,6 @@ export async function insertExam (req: Request, res: Response) {
     res.sendStatus(500);
   }
 };
-
-const idSchema = Joi.object({ 
-  id: Joi.number().integer()
-  });
 
 export async function getExamBySubject(req: Request, res: Response) {
   const id : number = Number(req.params.id);
@@ -51,7 +46,6 @@ export async function getExamBySubject(req: Request, res: Response) {
   }
 
 };
-
 
 export async function getExamByTeacher(req: Request, res: Response) {
   const id : number = Number(req.params.id);

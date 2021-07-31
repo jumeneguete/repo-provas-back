@@ -1,22 +1,14 @@
 import { getRepository } from "typeorm";
 import { Body } from "../controllers/examControllers";
 import Exam from "../entities/Exam";
-import Joi from "joi";
+import { bodySchema } from "../schemas/bodySchema";
 import dayjs from 'dayjs'
 
-const schema = Joi.object({ 
-  name: Joi.string().length(4),
-  semester: Joi.string().length(1),
-  link: Joi.string().pattern(new RegExp(".+\.pdf$")),
-  subjectId: Joi.number().integer(),
-  teacherId: Joi.number().integer(),
-  typeId: Joi.number().integer()
-  });
 
 export async function insert ({ name, semester, link, subjectId, teacherId, typeId}: Body) {
   const receivedBody= { name, semester, link, subjectId, teacherId, typeId}
 
-  const validation = schema.validate(receivedBody);
+  const validation = bodySchema.validate(receivedBody);
   const validName  = Number(name) >= 1990 && Number(name) <= dayjs().year();
   const validSemester = Number(semester) === 1 || Number(semester) === 2;
 
