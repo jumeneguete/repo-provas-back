@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import Subject from "./Subject";
 import Teacher from './Teacher';
 import Type from "./Type";
@@ -18,20 +18,21 @@ export default class Exam {
   link: string;
 
   @Column()
-  subjectId: number
+  subjectId: number;
+  @ManyToOne(() => Subject, subject => subject.exam)
+  @JoinColumn({ name: "subjectId"})
+  subject: Subject;
 
   @Column()
-  teacherId: number
+  teacherId: number;
+  @ManyToOne(() => Teacher, teacher => teacher.exam)
+  @JoinColumn({ name: "teacherId"})
+  teacher: Teacher;
 
   @Column()
   typeId: number;
-
-  @ManyToOne(() => Subject, subject => subject.id)
-  subject: Subject;
-
-  @ManyToOne(() => Teacher, teacher => teacher.id)
-  teacher: Teacher;
-
-  @ManyToOne(() => Type, type => type.id)
+  @ManyToOne(() => Type, type => type.exam)
+  @JoinColumn({ name: "typeId"})
   type: Type;
+
 }

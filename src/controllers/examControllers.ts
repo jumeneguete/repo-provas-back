@@ -9,7 +9,7 @@ export interface Body {
   subjectId: number,
   teacherId: number,
   typeId: number
-}
+};
 
 export async function insertExam (req: Request, res: Response) {
   try {
@@ -30,14 +30,32 @@ export async function insertExam (req: Request, res: Response) {
     console.error(err);
     res.sendStatus(500);
   }
-}
+};
 
 export async function getExamBySubject(req: Request, res: Response) {
   const id : number = Number(req.params.id);
   const result = await examService.getExamBySubject(id);
 
   res.status(200).send(result) 
-}
+};
+
+
+
+export async function getExamByTeacher(req: Request, res: Response) {
+  const id : number = Number(req.params.id);
+
+  try{
+    const result = await examService.getExamByTeacher(id);
+
+    res.status(200).send(result) ;
+
+  }catch(err){
+      console.log(err);
+      res.sendStatus(500);
+  }
+
+};
+
 
 export async function teste (req: Request, res: Response) {
     res.send("fooooooi");

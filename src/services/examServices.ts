@@ -37,8 +37,17 @@ export async function insert ({ name, semester, link, subjectId, teacherId, type
 
 export async function getExamBySubject(id : number) {
   const result = getRepository(Exam).find({
-    relations: ["teacher"],
+    relations: ["teacher", "type"],
     where: {subjectId : id}
+  });
+
+  return result;
+}
+
+export async function getExamByTeacher(id : number) {
+  const result = getRepository(Exam).find({
+    relations: ["subject", "type"],
+    where: {teacherId : id}
   });
 
   return result;

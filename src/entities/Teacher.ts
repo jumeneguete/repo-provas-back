@@ -10,7 +10,7 @@ export default class Teacher {
   @Column()
   name: string;
 
-  @OneToMany(() => Exam, exam => exam.teacherId)
+  @OneToMany(() => Exam, exam => exam.teacher)
   exam: Exam[];
 
   @OneToMany(() => TeacherSubject, teacherSubject => teacherSubject.teacherId)

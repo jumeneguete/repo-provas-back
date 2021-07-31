@@ -9,7 +9,7 @@ export default class Type {
   @Column()
   name: string;
 
-  @OneToMany(() => Exam, exam => exam.typeId)
+  @OneToMany(() => Exam, exam => exam.type)
   exam: Exam[];
 
 }
