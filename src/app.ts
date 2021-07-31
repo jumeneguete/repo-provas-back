@@ -19,6 +19,7 @@ app.get("/subject", subjectController.getSubjects);
 app.get("/:id/subject/", examController.getExamBySubject);
 app.get("/teacher", teacherController.getTeacher);
 app.get("/:id/teacher/", examController.getExamByTeacher);
+app.get("/subject-teacher", subjectController.getSubjectsAndTeachers);
 
 
 export async function init () {
