@@ -20,7 +20,7 @@ export default class Subject {
   @OneToMany(() => Exam, exam => exam.subject)
   exam: Exam[];
 
-  @OneToMany(() => TeacherSubject, teacherSubjec => teacherSubjec.subjectId)
+  @OneToMany(() => TeacherSubject, teacherSubjec => teacherSubjec.subject)
   teacherSubject: TeacherSubject[];
 
 }

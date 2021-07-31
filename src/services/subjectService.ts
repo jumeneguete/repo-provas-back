@@ -10,8 +10,3 @@ export async function getSubject() {
 
     return result;
 }
-
-// const result2 = await getRepository(Exam).find({
-//     relations: ["subject"]
-    
-// });  

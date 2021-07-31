@@ -13,7 +13,7 @@ export default class Teacher {
   @OneToMany(() => Exam, exam => exam.teacher)
   exam: Exam[];
 
-  @OneToMany(() => TeacherSubject, teacherSubject => teacherSubject.teacherId)
+  @OneToMany(() => TeacherSubject, teacherSubject => teacherSubject.teacher)
   teacherSubject: TeacherSubject[];
 
 }

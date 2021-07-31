@@ -17,7 +17,7 @@ app.use(express.json());
 app.post("/exam", examController.insertExam);
 app.get("/subject", subjectController.getSubjects);
 app.get("/subject/:id", examController.getExamBySubject);
-//app.get("/teacher", teacherController.getTeachers);
+app.get("/teacher", teacherController.getTeacher);
 app.get("/teacher/:id", examController.getExamByTeacher);
 
 
