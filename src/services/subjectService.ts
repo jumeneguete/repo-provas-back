@@ -12,10 +12,11 @@ export async function getSubject() {
     return result;
 }
 
-export async function getSubjectsAndTeachers() {
+export async function getTeacherBySubId(subjectId: number) {
 
     const result = await getRepository(TeacherSubject).find({
-        relations: ["teacher", "subject"]
+        relations: ["teacher", "subject"],
+        where: {subjectId}
     });
 
     return result;
