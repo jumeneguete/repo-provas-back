@@ -18,7 +18,6 @@ export async function getSubjects(req: Request, res: Response) {
 export async function getTeacherBySubId(req: Request, res: Response) {
     const subId: number = Number(req.params.subId);
     const validId = idSchema.validate({ id:subId });
-    console.log(subId)
 
     try {
         if (!subId || validId.error) return res.sendStatus(400);
