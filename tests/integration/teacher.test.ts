@@ -15,6 +15,15 @@ const agent = supertest(app)
 
 describe("GET /teacher", () => {
 
+  function returnedTeachers() {
+    const subject = {
+      id: expect.any(Number),
+      name: expect.any(String),
+      exam: expect.any(Array)
+    }
+    return subject;
+  }
+
   it("should answer with status 200 when return all teachers from database", async () => {
     const response = await agent.get("/teacher");
 
@@ -24,7 +33,13 @@ describe("GET /teacher", () => {
   it("should return an array from database", async () => {
     const response = await agent.get("/teacher");
 
-   expect(response.body).toEqual(expect.any(Array));
+    const receivedTeachers = returnedTeachers();
+
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(receivedTeachers)
+      ])
+    );
   });
 
 });

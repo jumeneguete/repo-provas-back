@@ -17,8 +17,8 @@ export async function insertExam (req: Request, res: Response) {
     const body : Body = req.body;
     const { name, semester, link, subjectId, teacherId, typeId} = body;
 
-    const condition = !name || !semester || !link || !subjectId || !teacherId || !typeId;
-    if (condition) return res.sendStatus(400);
+    const NotValidBody = !name || !semester || !link || !subjectId || !teacherId || !typeId;
+    if (NotValidBody) return res.sendStatus(400);
 
     const exam = await examService.insert(body);
     if (exam === null) return res.sendStatus(409);

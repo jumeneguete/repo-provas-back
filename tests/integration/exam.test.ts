@@ -16,25 +16,40 @@ beforeEach(async () => {
 
 afterAll(async () => {
   await clearExamDatabase();
-  await getConnection().close();  // ?????????????????????????????
+  await getConnection().close();
 });
 
-const agent = supertest(app)
+const agent = supertest(app);
+
+function generateBody() {
+  const body: Body = {
+    name: "2000",
+    semester: "1",
+    link: "https://educaemcasa.petropolis.rj.gov.br/uploads/bibliotecas/1601725787-1-5059990448471277738-pdf.pdf",
+    subjectId: 1,
+    teacherId: 1,
+    typeId: 1
+  }
+
+  return body;
+}
+
+function returnedExam (){
+  const exam = {
+    id: expect.any(Number),
+    semester: expect.any(String),
+    link: expect.any(String),
+    subjectId: expect.any(Number),
+    teacherId: expect.any(Number),
+    typeId: expect.any(Number),
+    teacher: expect.any(Object),
+    type: expect.any(Object),
+    subject: expect.any(Object)
+  }
+  return exam;
+}
 
 describe("POST /exam", () => {
-
-  function generateBody(){
-    const body : Body = {
-      name: "2000",
-      semester: "1",
-      link: "https://educaemcasa.petropolis.rj.gov.br/uploads/bibliotecas/1601725787-1-5059990448471277738-pdf.pdf",
-      subjectId: 1,
-      teacherId: 1,
-      typeId: 1
-    }
-
-    return body;
-  }
 
   it("should answer with status 201 when receive a valid body", async () => {
     const body = generateBody();
@@ -132,11 +147,31 @@ describe("GET /:id/subject", () => {
     expect(response.status).toBe(200);
   });
 
-  it("should return an array from database when receive a valid parma", async () => {
-    const param = "1"
+  it("should return an array from database when receive a valid and existing param", async () => {
+    const body = generateBody();
+    await createExam(body);
+    const param = 1;
+
     const response = await agent.get(`/${param}/subject`);
 
-   expect(response.body).toEqual(expect.any(Array));
+    const receivedExam = returnedExam();
+
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(receivedExam)
+      ])
+    );
+  });
+
+  it("should return an empty array when receive a valid param, but there is no exam from subject", async () => {
+    const param = 1;
+
+    const response = await agent.get(`/${param}/subject`);
+
+    expect(response.body).toEqual(
+      expect.arrayContaining([])
+    );
+ 
   });
 
   it("should return status 400 when receive an invalid param - NaN", async () => {
@@ -169,10 +204,30 @@ describe("GET /:id/teacher", () => {
   });
 
   it("should return an array from database when receive a valid parma", async () => {
+    const body = generateBody();
+    await createExam(body);
     const param = "1"
+
     const response = await agent.get(`/${param}/teacher`);
 
-   expect(response.body).toEqual(expect.any(Array));
+    const receivedExam = returnedExam();
+
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(receivedExam)
+      ])
+    );
+  });
+
+  it("should return an empty array when receive a valid param, but there is no exam from teacher", async () => {
+    const param = 1;
+
+    const response = await agent.get(`/${param}/subject`);
+
+    expect(response.body).toEqual(
+      expect.arrayContaining([])
+    );
+ 
   });
 
   it("should return status 400 when receive an invalid param - NaN", async () => {

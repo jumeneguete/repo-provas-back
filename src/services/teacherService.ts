@@ -3,12 +3,12 @@ import Teacher from "../entities/Teacher";
 
 export async function getTeacher() {
 
-    const result3 = await getRepository(Teacher).find({
+    const teacher = await getRepository(Teacher).find({
         relations: ["exam"]
 
     });
 
-    return result3;
+    return teacher;
 }
 
 

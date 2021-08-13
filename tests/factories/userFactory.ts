@@ -7,6 +7,5 @@ export async function createExam (body: Body) {
 
   const newExam = getRepository(Exam).create(body);
   const result = await getRepository(Exam).save(newExam);
-
   return result;
 }
