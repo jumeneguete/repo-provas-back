@@ -33,6 +33,12 @@ This is the API that works with an application where people can send an old exam
 - <a href="https://www.npmjs.com/package/joi" target="_blank">Joi</a>
 - Front-end using ReactJS at https://github.com/jumeneguete/repo-provas-front
 
+### 🔹🔹Disclaimer
+
+On this project I was training Typescript ans implementing TpeORM for the very firts time. <br>
+It was very challenging, but I loved the final result. <br>
+→  Later on I would like to make improvements adding authenticated routes to send an exam, and making a system that users can pick up an specific course from University and browse exams there. Then I intend to work with middlewares and migrations on it.
+
 
 ### 🔹🔹How to run
 
