@@ -59,4 +59,4 @@ npm run dev
 ```bash
 npm run test
 ```
-7. That's it! :D
+3. That's it! :D
