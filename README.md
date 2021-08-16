@@ -50,7 +50,7 @@ npm run dev
 ```
 7. Congrats! App is runnig and you can test it using some API Client or together with the <a href="https://github.com/jumeneguete/mywallet-front-end" target="_blank">front-end application</a>.
 
-
+<br>
 
 ➔  You can also run integration tests following the additional steps:
 
