@@ -1,6 +1,5 @@
 import supertest from "supertest";
 import { getConnection } from "typeorm";
-
 import app, { init } from "../../src/app";
 
 beforeAll(async () => {
@@ -11,16 +10,15 @@ afterAll(async () => {
   await getConnection().close();
 });
 
-const agent = supertest(app)
+const agent = supertest(app);
 
 describe("GET /teacher", () => {
-
   function returnedTeachers() {
     const subject = {
       id: expect.any(Number),
       name: expect.any(String),
-      exam: expect.any(Array)
-    }
+      exam: expect.any(Array),
+    };
     return subject;
   }
 
@@ -36,10 +34,7 @@ describe("GET /teacher", () => {
     const receivedTeachers = returnedTeachers();
 
     expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(receivedTeachers)
-      ])
+      expect.arrayContaining([expect.objectContaining(receivedTeachers)])
     );
   });
-
 });

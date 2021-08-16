@@ -1,6 +1,5 @@
 import supertest from "supertest";
 import { getConnection } from "typeorm";
-
 import app, { init } from "../../src/app";
 
 beforeAll(async () => {
@@ -14,7 +13,6 @@ afterAll(async () => {
 const agent = supertest(app);
 
 describe("GET /subject", () => {
-
   function returnedSubjects() {
     const subject = {
       id: expect.any(Number),
@@ -24,8 +22,8 @@ describe("GET /subject", () => {
         id: expect.any(Number),
         name: expect.any(String),
       }),
-      exam: expect.any(Array)
-    }
+      exam: expect.any(Array),
+    };
     return subject;
   }
 
@@ -41,16 +39,12 @@ describe("GET /subject", () => {
     const receivedSubjects = returnedSubjects();
 
     expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(receivedSubjects)
-      ])
+      expect.arrayContaining([expect.objectContaining(receivedSubjects)])
     );
   });
-
 });
 
 describe("GET /:subId/subject-teacher", () => {
-
   function returnedSubjectAndTeacher() {
     const result = {
       id: expect.any(Number),
@@ -63,9 +57,9 @@ describe("GET /:subId/subject-teacher", () => {
       subject: expect.objectContaining({
         id: expect.any(Number),
         name: expect.any(String),
-        termId: expect.any(Number)
-      })
-    }
+        termId: expect.any(Number),
+      }),
+    };
     return result;
   }
 
@@ -84,29 +78,27 @@ describe("GET /:subId/subject-teacher", () => {
 
     expect(response.body).toEqual(
       expect.arrayContaining([
-        expect.objectContaining(receivedSubjectAndTeacher)
+        expect.objectContaining(receivedSubjectAndTeacher),
       ])
     );
   });
 
   it("should return an empty array from database when receive an unexistent param", async () => {
-    const param = "123456789"
+    const param = "123456789";
     const response = await agent.get(`/${param}/subject-teacher`);
 
-    expect(response.body).toEqual(
-      expect.arrayContaining([])
-    );
+    expect(response.body).toEqual(expect.arrayContaining([]));
   });
 
   it("should return status 400 when receive an invalid param - NaN", async () => {
-    const param = "teste"
+    const param = "teste";
     const response = await agent.get(`/${param}/subject-teacher`);
 
     expect(response.status).toBe(400);
   });
 
   it("should return status 400 when receive an invalid param - not integer", async () => {
-    const param = "1.1"
+    const param = "1.1";
     const response = await agent.get(`/${param}/subject-teacher`);
 
     expect(response.status).toBe(400);

@@ -1,11 +1,8 @@
 import "./setup";
-
 import express from "express";
 import cors from "cors";
 import "reflect-metadata";
-
 import connectDatabase from "./database";
-
 import * as examController from "./controllers/examControllers";
 import * as subjectController from "./controllers/subjectController";
 import * as teacherController from "./controllers/teacherController";
@@ -21,8 +18,7 @@ app.get("/teacher", teacherController.getTeacher);
 app.get("/:id/teacher/", examController.getExamByTeacher);
 app.get("/:subId/subject-teacher", subjectController.getTeacherBySubId);
 
-
-export async function init () {
+export async function init() {
   await connectDatabase();
 }
 

@@ -1,10 +1,9 @@
 import supertest from "supertest";
 import { getConnection } from "typeorm";
-
 import app, { init } from "../../src/app";
 import { createExam } from "../factories/userFactory";
 import { clearExamDatabase } from "../utils/database";
-import { Body } from "../../src/controllers/examControllers"
+import { Body } from "../../src/controllers/examControllers";
 
 beforeAll(async () => {
   await init();
@@ -28,13 +27,13 @@ function generateBody() {
     link: "https://educaemcasa.petropolis.rj.gov.br/uploads/bibliotecas/1601725787-1-5059990448471277738-pdf.pdf",
     subjectId: 1,
     teacherId: 1,
-    typeId: 1
-  }
+    typeId: 1,
+  };
 
   return body;
 }
 
-function returnedExam (){
+function returnedExam() {
   const exam = {
     id: expect.any(Number),
     semester: expect.any(String),
@@ -44,13 +43,12 @@ function returnedExam (){
     typeId: expect.any(Number),
     teacher: expect.any(Object),
     type: expect.any(Object),
-    subject: expect.any(Object)
-  }
+    subject: expect.any(Object),
+  };
   return exam;
 }
 
 describe("POST /exam", () => {
-
   it("should answer with status 201 when receive a valid body", async () => {
     const body = generateBody();
 
@@ -106,7 +104,7 @@ describe("POST /exam", () => {
 
   it("should answer with status 401 when subjectId, teacherId or typeId are not inytegers", async () => {
     const body = generateBody();
-    body.subjectId = 1.34
+    body.subjectId = 1.34;
 
     const response = await agent.post("/exam").send(body);
 
@@ -135,13 +133,9 @@ describe("POST /exam", () => {
   });
 });
 
-
-
-
 describe("GET /:id/subject", () => {
-
   it("should answer with status 200 when receive a valid param and returns from database", async () => {
-    const param = "1"
+    const param = "1";
     const response = await agent.get(`/${param}/subject`);
 
     expect(response.status).toBe(200);
@@ -157,9 +151,7 @@ describe("GET /:id/subject", () => {
     const receivedExam = returnedExam();
 
     expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(receivedExam)
-      ])
+      expect.arrayContaining([expect.objectContaining(receivedExam)])
     );
   });
 
@@ -168,36 +160,27 @@ describe("GET /:id/subject", () => {
 
     const response = await agent.get(`/${param}/subject`);
 
-    expect(response.body).toEqual(
-      expect.arrayContaining([])
-    );
- 
+    expect(response.body).toEqual(expect.arrayContaining([]));
   });
 
   it("should return status 400 when receive an invalid param - NaN", async () => {
-    const param = "teste"
+    const param = "teste";
     const response = await agent.get(`/${param}/subject`);
 
     expect(response.status).toBe(400);
   });
 
   it("should return status 400 when receive an invalid param - not integer", async () => {
-    const param = "1.1"
+    const param = "1.1";
     const response = await agent.get(`/${param}/subject`);
 
     expect(response.status).toBe(400);
   });
-
 });
 
-
-
-
-
 describe("GET /:id/teacher", () => {
-
   it("should answer with status 200 when receive a valid param and returns from database", async () => {
-    const param = "1"
+    const param = "1";
     const response = await agent.get(`/${param}/teacher`);
 
     expect(response.status).toBe(200);
@@ -206,16 +189,14 @@ describe("GET /:id/teacher", () => {
   it("should return an array from database when receive a valid parma", async () => {
     const body = generateBody();
     await createExam(body);
-    const param = "1"
+    const param = "1";
 
     const response = await agent.get(`/${param}/teacher`);
 
     const receivedExam = returnedExam();
 
     expect(response.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(receivedExam)
-      ])
+      expect.arrayContaining([expect.objectContaining(receivedExam)])
     );
   });
 
@@ -224,24 +205,20 @@ describe("GET /:id/teacher", () => {
 
     const response = await agent.get(`/${param}/subject`);
 
-    expect(response.body).toEqual(
-      expect.arrayContaining([])
-    );
- 
+    expect(response.body).toEqual(expect.arrayContaining([]));
   });
 
   it("should return status 400 when receive an invalid param - NaN", async () => {
-    const param = "teste"
+    const param = "teste";
     const response = await agent.get(`/${param}/teacher`);
 
     expect(response.status).toBe(400);
   });
 
   it("should return status 400 when receive an invalid param - not integer", async () => {
-    const param = "1.1"
+    const param = "1.1";
     const response = await agent.get(`/${param}/teacher`);
 
     expect(response.status).toBe(400);
   });
-
 });

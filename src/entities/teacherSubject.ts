@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
 import Teacher from "./Teacher";
 import Subject from "./Subject";
 
@@ -9,14 +15,13 @@ export default class TeacherSubject {
 
   @Column()
   teacherId: number;
-  @ManyToOne(() => Teacher, teacher => teacher.teacherSubject)
-  @JoinColumn({ name: "teacherId"})
+  @ManyToOne(() => Teacher, (teacher) => teacher.teacherSubject)
+  @JoinColumn({ name: "teacherId" })
   teacher: Teacher;
 
   @Column()
   subjectId: number;
-  @ManyToOne(() => Subject, subject => subject.teacherSubject)
-  @JoinColumn({ name: "subjectId"})
+  @ManyToOne(() => Subject, (subject) => subject.teacherSubject)
+  @JoinColumn({ name: "subjectId" })
   subject: Subject;
-  
-};
+}
