@@ -5,7 +5,7 @@ In this application students can upload an exam saved online as pdf and search o
 
 <p align="center"><img width="600px" src="/assets/repoprovas.gif" /></p>
 
-You can find this front-end application at https://github.com/jumeneguete/repo-provas-front
+You can find this front-end application at https://github.com/jumeneguete/repo-provas-front <br>
 Also, try it out now at https://repoprovas-nu.vercel.app/
 
 
