@@ -54,7 +54,7 @@ npm run dev
 
 ➔  You can also run integration tests following the additional steps:
 
-1. Ceate an .env.tests file based on env.example and set a cloned database to run tests;
+1. Ceate an .env.test file based on env.example and set a cloned database to run tests;
 2. Run server
 ```bash
 npm run test
